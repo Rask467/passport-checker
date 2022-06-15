@@ -2,8 +2,33 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
+import {PassportReader} from '@gitcoinco/passport-sdk-reader'
+import { useEffect, useState } from 'react'
+import { useAccount } from 'wagmi'
+
+const reader = new PassportReader('https://ceramic-clay.3boxlabs.com', '1');
 
 const Home: NextPage = () => {
+  const [address, setAddress] = useState('')
+  const { data } = useAccount()
+  
+  useEffect(() => {
+    if (data && data.address !== undefined) {
+      setAddress(data.address)
+    }
+  }, [])
+
+  useEffect(() => {
+    async function a () {
+      console.log('address: ', address)
+      const passport = await reader.getPassport(address);
+      console.log('passport: ', passport)
+    }
+    if(address !== '' && address !== undefined) {
+      a()
+    }
+  }, [address])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -19,57 +44,8 @@ const Home: NextPage = () => {
         <ConnectButton />
 
         <h1 className={styles.title}>
-          Welcome to <a href="">RainbowKit</a> + <a href="">wagmi</a> +{' '}
-          <a href="https://nextjs.org">Next.js!</a>
+          Welcome to PassportChecker!
         </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://rainbowkit.com" className={styles.card}>
-            <h2>RainbowKit Documentation &rarr;</h2>
-            <p>Learn how to customize your wallet connection flow.</p>
-          </a>
-
-          <a href="https://wagmi.sh" className={styles.card}>
-            <h2>wagmi Documentation &rarr;</h2>
-            <p>Learn how to interact with Ethereum.</p>
-          </a>
-
-          <a
-            href="https://github.com/rainbow-me/rainbowkit-examples"
-            className={styles.card}
-          >
-            <h2>RainbowKit Examples &rarr;</h2>
-            <p>Discover boilerplate example RainbowKit projects.</p>
-          </a>
-
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Next.js Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Next.js Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
       </main>
 
       <footer className={styles.footer}>
