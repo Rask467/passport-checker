@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "@gitcoinco/passport-sdk-reader": "^0.1.1",
+    "@gitcoinco/passport-sdk-scorer": "^0.1.1",
+    "@gitcoinco/passport-sdk-verifier": "^0.1.1",
     "@rainbow-me/rainbowkit": "^0.3.0",
+    "@spruceid/didkit-wasm": "^0.2.1",
     "ethers": "^5.6.8",
     "next": "^12.1.6",
     "react": "^18.1.0",
