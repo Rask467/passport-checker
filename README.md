@@ -2,6 +2,8 @@
 
 This is an example application meant to show off what Gitcoin Passport can do and how to integrate it into an application.
 
+Link to video showing how to build and educating about Gitcoin Passport: https://youtu.be/MP4VnlcjDhk
+
 ## Getting Started
 
 First, run the development server:
